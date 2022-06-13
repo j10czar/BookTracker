@@ -106,4 +106,10 @@ button:hover:before{
     
 }
 
+.read_label{
+    transform: ease-out 0.5s;
+    color: rgb(31, 208, 45);
+    font-weight: 800;
+}
+
 
