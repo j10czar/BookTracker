@@ -4,7 +4,7 @@ var user_title
 var user_author
 var user_pagenums
 
-var cur_card = 1
+var cur_card = 0
 
 
 function Book(a,t,n){
@@ -37,11 +37,16 @@ function addBookToLibrary(b){
     rbutton.setAttribute("type","button")
     rbutton.setAttribute("class","remove")
 
+
     const mbutton = document.createElement("button")
     mbutton.innerHTML="Read"
     mbutton.setAttribute("id","m"+cur_card)
     mbutton.setAttribute("type","button")
     mbutton.setAttribute("class","read")
+    mbutton.addEventListener("click", () => {
+        alert("this works"+cur_card)
+
+    })
 
     container.appendChild(h3)
     container.appendChild(p1)
