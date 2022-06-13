@@ -27,9 +27,6 @@ body{
 
 }
 
-
-
-
 hr{
     border:none;
     height: 20px;
@@ -69,6 +66,8 @@ button:hover:before{
 }
 
 .book_box{
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     border-style: solid;    
     border-radius: 5px;
