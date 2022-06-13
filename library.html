@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library System</title>
+    <title>Book Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,28 @@
         <hr>
     </div>    
     
-    <button id="add_book" type="button">Add book</button><br>
+    <button id="add_book" type="button">Add book+</button><br>
+    
+    <div class="bg-modal">
+        <div class="modal-panel">
+            <form action="" id="user-input">
+                <div class="close">+</div>
+                <h3>Add Book to Library</h3>
+                <input type="text" id="user-title" placeholder="Title of book" required>
+                <br><br>
+                <input type="text" id="user-author" placeholder="Author name" required>
+                <br><br>
+                <input type="number" id="user-pages" placeholder="Number of pages" min="0" required>
+                <br><br>
+
+                <button type="button" id="button-submit">Add to library</button>
+                
+            
+            </form>
+
+
+        </div>
+    </div>
 
 
     <script src="library.js"></script>    

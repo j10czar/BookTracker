@@ -47,7 +47,7 @@ class Book{
         mbutton.setAttribute("type","button")
         mbutton.setAttribute("class","read")
         mbutton.addEventListener("click", () => {
-            document.getElementById("div"+this.index).style.borderColor="rgb(77, 247, 91)"
+            document.getElementById("div"+this.index).style.borderColor="rgb(31, 208, 45)"
             document.getElementById("m"+this.index).remove()
             const read = document.createElement("p")
             read.innerHTML="Read!"
@@ -73,14 +73,41 @@ class Book{
 
 
 document.getElementById("add_book").onclick = function(){
-    user_title = prompt("What is the title of your book?")
-    user_author = prompt("What is the author of your book?")
-    user_pagenums = prompt("How many pages are in your book?")
-    var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
-    library.push(user_book)
-    user_book.createCard()
-    cur_index += 1
+    document.querySelector('.bg-modal').style.display = 'flex'
+    
 }
+
+document.getElementById("button-submit").addEventListener('click',function(){ 
+    user_title = document.getElementById('user-title').value
+    user_author = document.getElementById('user-author').value
+    user_pagenums = document.getElementById('user-pages').value
+
+    if(user_title=="")
+    {
+        document.getElementById('user-title').style.border = "2px solid rgb(247, 77, 77"
+    }
+    else if(user_author=="")
+    {
+        document.getElementById('user-author').style.border = "2px solid rgb(247, 77, 77"
+    }
+    else if(user_pagenums<0 || user_pagenums>10000 || user_pagenums=="")
+    {
+        document.getElementById('user-pages').style.border = "2px solid rgb(247, 77, 77"
+    }
+    else{
+        document.querySelector('.bg-modal').style.display='none'
+        var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
+        library.push(user_book)
+        user_book.createCard()
+        cur_index += 1
+
+    }
+    
+})
+
+document.querySelector('.close').addEventListener('click',function(){
+    document.querySelector('.bg-modal').style.display='none'
+})
 
 
 
