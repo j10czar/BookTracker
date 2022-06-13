@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;800&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    
+
+}
+body{
+    background-color: rgb(230, 230, 230);
+}
+
+#title{
+    text-align: center;
+    
+    font-weight: 800;
+    position: relative; top: 50px;
+    font-size: 35px;
+    resize: none;
+
+}
+
+#header{
+
+    margin-top: -65px;  
+    background-color: white;
+    width: 100%;
+
+}
+
+
+
+
+hr{
+    border:none;
+    height: 20px;
+    height: 50px;
+	margin-top: 0;
+	border-bottom: 1px solid #1b1b1b;
+	box-shadow: 0 15px 15px -20px #333;
+    margin: -50px auto 10px;
+}
+
+h3{
+    font-weight: 800;
+}
+
+button{
+    background-color: white;
+    border: solid;
+    border-color: #141414;
+    color: #141414;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 16px;
+    transition: ease-out 0.3s;
+
+}
+
+button:hover{
+    background-color: #141414;
+    color: white;
+    
+}
+
+button:hover:before{
+    transform: 0.2s all ease;
+}
+
+.book_box{
+    margin-top: 20px;
+    border-style: solid;    
+    border-radius: 5px;
+    width: 20%;
+    padding: 5px;
+    transform: ease-out 0.5s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.remove{
+    border-color: rgb(247, 77, 77);
+    color: rgb(247, 77, 77);
+
+}
+
+
+.remove:hover{
+    background-color: rgb(247, 77, 77);
+    color: white;
+    
+}
+
+.read{
+    border-color: rgb(77, 247, 91);
+    color: rgb(77, 247, 91);
+
+}
+
+
+.read:hover{
+    background-color: rgb(77, 247, 91);
+    color: white;
+    
+}
+
+
