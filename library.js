@@ -19,6 +19,7 @@ class Book{
 
     }
     createCard(){
+        this.index=cur_index
 
         const mainpanel = document.getElementById("book-panel")
         const container = document.createElement("div")
@@ -41,7 +42,23 @@ class Book{
         rbutton.setAttribute("class","remove")
         rbutton.addEventListener("click", () => {
             document.getElementById("div"+this.index).remove()
-            deleteDataFromLocalStorage(this.index)
+
+            let libIndex = 0
+
+            for(let i = 0; i<library.length;i++)
+            {
+                if(library[i].index == this.index)
+                {
+                    libIndex=i
+                }
+            }
+            
+            library.splice(libIndex,1)
+
+
+            saveDataToLocalStorage("library",library)
+            cur_index -= 1
+            
 
 
         })
@@ -52,6 +69,18 @@ class Book{
         mbutton.setAttribute("id","m"+this.index)
         mbutton.setAttribute("type","button")
         mbutton.setAttribute("class","read")
+        if(this.read) 
+            {
+                container.style.borderColor="rgb(31, 208, 45)"
+                mbutton.innerHTML="Mark as unread"
+                  
+            }
+        else 
+            {
+                container.style.borderColor="rgb(0, 0, 0)"
+                mbutton.innerHTML="Mark as read"
+                
+            }
         mbutton.addEventListener("click", () => {
 
             if(this.read) 
@@ -59,12 +88,14 @@ class Book{
                 document.getElementById("div"+this.index).style.borderColor="rgb(0, 0, 0)"
                 mbutton.innerHTML="Mark as read"
                 this.read=false   
+                saveDataToLocalStorage("library",library)
             }
             else 
             {
                 document.getElementById("div"+this.index).style.borderColor="rgb(31, 208, 45)"
                 mbutton.innerHTML="Mark as unread"
                 this.read=true
+                saveDataToLocalStorage("library",library)
             }
         })
 
@@ -117,7 +148,7 @@ document.getElementById("button-submit").addEventListener('click',function(){
         var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
         library.push(user_book)
         user_book.createCard()
-        saveDataToLocalStorage(cur_index,user_book)
+        saveDataToLocalStorage("library",library)
         cur_index += 1
 
     }
@@ -155,48 +186,39 @@ function deleteDataFromLocalStorage(key) {
 
 
 
-var loadedLibrary = []
 
-if(localStorage.length>1)
-{
-    console.log("Local storage found!")
 
-    for(let key in localStorage)
-    {
-        try {
-            let loadedBook = Object.assign(new Book(), loadDataFromLocalStorage(key))
-            loadedLibrary.push(loadedBook)
+// if(localStorage.length>1)
+// {
+//     console.log("Local storage found!")
+
+//     for(let key in localStorage)
+//     {
+//         try {
+//             let loadedBook = Object.assign(new Book(), loadDataFromLocalStorage(key))
+//             loadedLibrary.push(loadedBook)
             
-        } catch (error) {
-            console.log("lol")
+//         } catch (error) {
+//             console.log("lol")
             
-        }
+//         }
 
 
         
 
-        // loadedBook.createCard() 
+//         // loadedBook.createCard() 
 
-    }
-    console.log(loadedLibrary)
-
-
-    for(var i = 0; i<loadedLibrary.length-1;i++)
-    {
-        let loadedBook = loadedLibrary[i]
-        console.log(loadedLibrary[i])
-
-        loadedBook.createCard() 
-
-    }
-
-    let indexFinder = Object.assign(new Book(), loadDataFromLocalStorage(localStorage.length-1))
-    cur_index = indexFinder.index
+//     }
+//     console.log(loadedLibrary)
+//     let indexFinder = Object.assign(new Book(), loadDataFromLocalStorage(localStorage.length-1))
+//     cur_index = indexFinder.index
 
     
       
-}
-else
-{
-    console.log("No local storage found.")
-}
+// }
+// else
+// {
+//     console.log("No local storage found.")
+// }
+
+
