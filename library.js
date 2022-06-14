@@ -4,22 +4,21 @@ var user_title
 var user_author
 var user_pagenums
 
-var cur_index = 0
+
 
 
 
 
 class Book{
-    constructor(a,t,n,r,i){
+    constructor(a,t,n,r,){
         this.author = a
         this.title = t
         this.pagenum = n
         this.read = r
-        this.index = i
+        this.index = library.length
 
     }
     createCard(){
-        this.index=cur_index
 
         const mainpanel = document.getElementById("book-panel")
         const container = document.createElement("div")
@@ -57,7 +56,6 @@ class Book{
 
 
             saveDataToLocalStorage("library",library)
-            cur_index -= 1
             
 
 
@@ -145,11 +143,10 @@ document.getElementById("button-submit").addEventListener('click',function(){
         document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
         document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
         document.querySelector('.bg-modal').style.display='none'
-        var user_book = new Book(user_author,user_title,user_pagenums,false,cur_index)
+        var user_book = new Book(user_author,user_title,user_pagenums,false)
         library.push(user_book)
         user_book.createCard()  
         saveDataToLocalStorage("library",library)
-        cur_index += 1
 
     }
     
@@ -200,13 +197,10 @@ if(localStorage.getItem('library') != null)
         
             let loadedBook = Object.assign(new Book(), storedLibrary[i])
             loadedBook.createCard() 
-            console.log(loadedBook)
             library.push(loadedBook)
 
     }
-    cur_index = localStorage.length-1
-
-    
+  
       
 }
 else
