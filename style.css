@@ -98,6 +98,7 @@ button:hover:before{
     box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
 
 
+
 }
 
 .remove{
@@ -248,3 +249,46 @@ input:focus{
     text-decoration: none; 
 
 }
+
+/* animation keys becuase im too lazy to import something lul */
+
+@keyframes fadeIn{
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
+
+.fadeInD{
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+    
+}
+
+.fadeOutD{
+    animation: fadeOut 0.2s ease-out;
+}
+
+
+
+@keyframes fadeOutGreenB{
+    0% {border-color: rgb(77, 247, 91);}
+    100% {border-color: black;}
+}
+
+.fadeOutGB{
+    animation: fadeOutGreenB 0.5s ease-out;
+}
+
+
+@keyframes fadeInGreenB{
+    0% {border-color: black;}
+    100% {border-color: rgb(77, 247, 91);}
+}
+
+.fadeInGB{
+    animation: fadeInGreenB 0.5s ease-out;
+}
+

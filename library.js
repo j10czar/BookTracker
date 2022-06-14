@@ -40,7 +40,10 @@ class Book{
         rbutton.setAttribute("type","button")
         rbutton.setAttribute("class","remove")
         rbutton.addEventListener("click", () => {
-            document.getElementById("div"+this.index).remove()
+            container.classList.add("fadeOutD");
+            setTimeout(function(){container.classList.remove("fadeOutD");
+            container.remove();}, 201);
+            
 
             let libIndex = 0
 
@@ -81,19 +84,27 @@ class Book{
             }
         mbutton.addEventListener("click", () => {
 
-            if(this.read) 
+            if(this.read) //fading out to green
             {
-                document.getElementById("div"+this.index).style.borderColor="rgb(0, 0, 0)"
+                container.style.borderColor="rgb(0, 0, 0)"
                 mbutton.innerHTML="Mark as read"
                 this.read=false   
                 saveDataToLocalStorage("library",library)
+
+                container.classList.add("fadeOutGB");
+                setTimeout(function(){container.classList.remove("fadeOutGB");}, 500);
+                container.style.borderColor='rgb(0, 0, 0)'
             }
-            else 
+            else //fading into green
             {
-                document.getElementById("div"+this.index).style.borderColor="rgb(31, 208, 45)"
+
                 mbutton.innerHTML="Mark as unread"
                 this.read=true
                 saveDataToLocalStorage("library",library)
+                container.classList.add("fadeInGB");
+                setTimeout(function(){container.classList.remove("fadeInGB");}, 500);
+                container.style.borderColor='rgb(77, 247, 91)'
+
             }
         })
 
@@ -105,7 +116,9 @@ class Book{
     container.appendChild(rbutton)
     mainpanel.appendChild(container)
 
-    
+    container.classList.add("fadeInD");
+    setTimeout(function(){container.classList.remove("fadeInD");}, 301);
+
 
 
     }
@@ -115,6 +128,8 @@ class Book{
 
 document.getElementById("add_book").onclick = function(){
     document.querySelector('.bg-modal').style.display = 'flex'
+    document.querySelector('.bg-modal').classList.add("fadeInD");
+    setTimeout(function(){document.querySelector('.bg-modal').classList.remove("fadeInD");}, 301);
     
 }
 
@@ -136,13 +151,18 @@ document.getElementById("button-submit").addEventListener('click',function(){
         document.getElementById('user-pages').style.border = "2px solid rgb(247, 77, 77)"
     }
     else{
+        let modal = document.querySelector('.bg-modal')
         document.getElementById('user-title').value=''
         document.getElementById('user-author').value=''
         document.getElementById('user-pages').value=''
         document.getElementById('user-title').style.border = "2px solid rgb(221, 221, 221)"
         document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
         document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
-        document.querySelector('.bg-modal').style.display='none'
+
+        modal.classList.add("fadeOutD");
+        setTimeout(function(){modal.classList.remove("fadeOutD");
+        modal.style.display='none';}, 201);
+        
         var user_book = new Book(user_author,user_title,user_pagenums,false)
         library.push(user_book)
         user_book.createCard()  
@@ -153,13 +173,16 @@ document.getElementById("button-submit").addEventListener('click',function(){
 })
 
 document.querySelector('.close').addEventListener('click',function(){
-    document.querySelector('.bg-modal').style.display='none'
+    let modal = document.querySelector('.bg-modal')
     document.getElementById('user-title').value=''
     document.getElementById('user-author').value=''
     document.getElementById('user-pages').value=''
     document.getElementById('user-title').style.border = "2px solid rgb(221, 221, 221)"
     document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
     document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
+    modal.classList.add("fadeOutD");
+    setTimeout(function(){modal.classList.remove("fadeOutD");
+    modal.style.display='none';}, 201);
 })
 
 function loadDataFromLocalStorage(key) {
