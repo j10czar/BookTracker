@@ -6,6 +6,7 @@ var user_pagenums
 
 var cur_index = 0
 
+
 class Book{
     constructor(a,t,n,i){
         this.author = a
@@ -16,6 +17,8 @@ class Book{
 
     }
     createCard(){
+
+        const mainpanel = document.getElementById("book-panel")
         const container = document.createElement("div")
         container.setAttribute("class","book_box")
         container.setAttribute("id","div"+this.index)
@@ -42,19 +45,24 @@ class Book{
 
 
         const mbutton = document.createElement("button")
-        mbutton.innerHTML="Read"
+        mbutton.innerHTML="Mark as read"
         mbutton.setAttribute("id","m"+this.index)
         mbutton.setAttribute("type","button")
         mbutton.setAttribute("class","read")
         mbutton.addEventListener("click", () => {
-            document.getElementById("div"+this.index).style.borderColor="rgb(31, 208, 45)"
-            document.getElementById("m"+this.index).remove()
-            const read = document.createElement("p")
-            read.innerHTML="Read!"
-            read.setAttribute("class","read_label")
-            container.appendChild(read)
-            
-    
+
+            if(this.read) 
+            {
+                document.getElementById("div"+this.index).style.borderColor="rgb(0, 0, 0)"
+                mbutton.innerHTML="Mark as read"
+                this.read=false   
+            }
+            else 
+            {
+                document.getElementById("div"+this.index).style.borderColor="rgb(31, 208, 45)"
+                mbutton.innerHTML="Mark as unread"
+                this.read=true
+            }
         })
 
 
@@ -63,9 +71,10 @@ class Book{
     container.appendChild(p2)
     container.appendChild(mbutton)
     container.appendChild(rbutton)
+    mainpanel.appendChild(container)
+
     
 
-    document.body.append(container)
 
     }
 }
@@ -82,19 +91,25 @@ document.getElementById("button-submit").addEventListener('click',function(){
     user_author = document.getElementById('user-author').value
     user_pagenums = document.getElementById('user-pages').value
 
-    if(user_title=="")
+    if(user_title==""||user_title.length>100)
     {
-        document.getElementById('user-title').style.border = "2px solid rgb(247, 77, 77"
+        document.getElementById('user-title').style.border = "2px solid rgb(247, 77, 77)"
     }
-    else if(user_author=="")
+    else if(user_author==""||user_title.length>100)
     {
-        document.getElementById('user-author').style.border = "2px solid rgb(247, 77, 77"
+        document.getElementById('user-author').style.border = "2px solid rgb(247, 77, 77)"
     }
     else if(user_pagenums<0 || user_pagenums>10000 || user_pagenums=="")
     {
-        document.getElementById('user-pages').style.border = "2px solid rgb(247, 77, 77"
+        document.getElementById('user-pages').style.border = "2px solid rgb(247, 77, 77)"
     }
     else{
+        document.getElementById('user-title').value=''
+        document.getElementById('user-author').value=''
+        document.getElementById('user-pages').value=''
+        document.getElementById('user-title').style.border = "2px solid rgb(221, 221, 221)"
+        document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
+        document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
         document.querySelector('.bg-modal').style.display='none'
         var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
         library.push(user_book)
@@ -107,8 +122,12 @@ document.getElementById("button-submit").addEventListener('click',function(){
 
 document.querySelector('.close').addEventListener('click',function(){
     document.querySelector('.bg-modal').style.display='none'
+    document.getElementById('user-title').value=''
+    document.getElementById('user-author').value=''
+    document.getElementById('user-pages').value=''
+    document.getElementById('user-title').style.border = "2px solid rgb(221, 221, 221)"
+    document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
+    document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
 })
-
-
 
 
