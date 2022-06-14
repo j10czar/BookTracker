@@ -10,11 +10,11 @@ var cur_index = 0
 
 
 class Book{
-    constructor(a,t,n,i){
+    constructor(a,t,n,r,i){
         this.author = a
         this.title = t
         this.pagenum = n
-        this.read = false
+        this.read = r
         this.index = i
 
     }
@@ -145,9 +145,9 @@ document.getElementById("button-submit").addEventListener('click',function(){
         document.getElementById('user-author').style.border = "2px solid rgb(221, 221, 221)"
         document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
         document.querySelector('.bg-modal').style.display='none'
-        var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
+        var user_book = new Book(user_author,user_title,user_pagenums,false,cur_index)
         library.push(user_book)
-        user_book.createCard()
+        user_book.createCard()  
         saveDataToLocalStorage("library",library)
         cur_index += 1
 
@@ -166,10 +166,11 @@ document.querySelector('.close').addEventListener('click',function(){
 })
 
 function loadDataFromLocalStorage(key) {
-    if (localStorage && localStorage[key]) {
+    if (localStorage[key] && localStorage) {
       obj = JSON.parse(localStorage[key])
       return obj
     }
+
     console.log("didnt return an object")
     return null
   }
@@ -188,37 +189,29 @@ function deleteDataFromLocalStorage(key) {
 
 
 
-// if(localStorage.length>1)
-// {
-//     console.log("Local storage found!")
+if(localStorage.getItem('library') != null)
+{
+    console.log("Local storage found!")
 
-//     for(let key in localStorage)
-//     {
-//         try {
-//             let loadedBook = Object.assign(new Book(), loadDataFromLocalStorage(key))
-//             loadedLibrary.push(loadedBook)
-            
-//         } catch (error) {
-//             console.log("lol")
-            
-//         }
+    let storedLibrary =  JSON.parse(localStorage.library)
 
-
+    for(let i = 0; i<storedLibrary.length;i++)
+    {
         
+            let loadedBook = Object.assign(new Book(), storedLibrary[i])
+            loadedBook.createCard() 
+            console.log(loadedBook)
+            library.push(loadedBook)
 
-//         // loadedBook.createCard() 
-
-//     }
-//     console.log(loadedLibrary)
-//     let indexFinder = Object.assign(new Book(), loadDataFromLocalStorage(localStorage.length-1))
-//     cur_index = indexFinder.index
+    }
+    cur_index = localStorage.length-1
 
     
       
-// }
-// else
-// {
-//     console.log("No local storage found.")
-// }
+}
+else
+{
+    console.log("No local storage found.")
+}
 
 
