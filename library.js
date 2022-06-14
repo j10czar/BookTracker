@@ -7,6 +7,8 @@ var user_pagenums
 var cur_index = 0
 
 
+
+
 class Book{
     constructor(a,t,n,i){
         this.author = a
@@ -39,6 +41,7 @@ class Book{
         rbutton.setAttribute("class","remove")
         rbutton.addEventListener("click", () => {
             document.getElementById("div"+this.index).remove()
+            deleteDataFromLocalStorage(this.index)
 
 
         })
@@ -114,6 +117,7 @@ document.getElementById("button-submit").addEventListener('click',function(){
         var user_book = new Book(user_author,user_title,user_pagenums,cur_index)
         library.push(user_book)
         user_book.createCard()
+        saveDataToLocalStorage(cur_index,user_book)
         cur_index += 1
 
     }
@@ -130,4 +134,69 @@ document.querySelector('.close').addEventListener('click',function(){
     document.getElementById('user-pages').style.border = "2px solid rgb(221, 221, 221)"
 })
 
+function loadDataFromLocalStorage(key) {
+    if (localStorage && localStorage[key]) {
+      obj = JSON.parse(localStorage[key])
+      return obj
+    }
+    console.log("didnt return an object")
+    return null
+  }
+function saveDataToLocalStorage(key, obj) {
+    if (localStorage) {
+      localStorage[key] = JSON.stringify(obj)
+    }
+  }
+function deleteDataFromLocalStorage(key) {
+    if (localStorage) {
+      localStorage.removeItem(key)
+    }
+  }
 
+
+
+var loadedLibrary = []
+
+if(localStorage.length>1)
+{
+    console.log("Local storage found!")
+
+    for(let key in localStorage)
+    {
+        try {
+            let loadedBook = Object.assign(new Book(), loadDataFromLocalStorage(key))
+            loadedLibrary.push(loadedBook)
+            
+        } catch (error) {
+            console.log("lol")
+            
+        }
+
+
+        
+
+        // loadedBook.createCard() 
+
+    }
+    console.log(loadedLibrary)
+
+
+    for(var i = 0; i<loadedLibrary.length-1;i++)
+    {
+        let loadedBook = loadedLibrary[i]
+        console.log(loadedLibrary[i])
+
+        loadedBook.createCard() 
+
+    }
+
+    let indexFinder = Object.assign(new Book(), loadDataFromLocalStorage(localStorage.length-1))
+    cur_index = indexFinder.index
+
+    
+      
+}
+else
+{
+    console.log("No local storage found.")
+}
